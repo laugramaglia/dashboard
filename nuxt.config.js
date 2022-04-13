@@ -38,8 +38,37 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/pwa
+    '@nuxtjs/axios',
+    '@nuxtjs/auth-next',
     '@nuxtjs/pwa',
   ],
+  router: {
+    middleware: ['auth']
+  },
+axios :{
+  baseURL: 'https://nest-backend-dashboard.herokuapp.com/'
+},
+  auth: {
+    strategies: {
+      local: {
+        token: {
+          property: 'access_token',
+          global: true,
+          required: true,
+          type: 'Bearer'
+        },
+        user: {
+          property: false, // <--- Default "user"
+          autoFetch: true
+        },
+        endpoints: {
+          login: { url: '/auth/login', method: 'post' },
+          logout: false,
+          user: {url: '/auth/me', method: 'get'}
+        }
+      }
+    }
+  },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
@@ -50,5 +79,10 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+
+  pwa: {
+    meta: false,
+    icon: false
   }
 }

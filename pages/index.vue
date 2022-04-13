@@ -1,11 +1,21 @@
+
 <template>
-  <Tutorial/>
+ <div class="flex">
+   <BodyCard>
+    <BodyList title="Users"/>
+ </BodyCard>
+ <BodyCard>
+   <button @click="logout">log-out</button>
+ </BodyCard>
+ </div>
 </template>
-
-<script lang="ts">
-import Vue from 'vue'
-
-export default Vue.extend({
-  name: 'IndexPage'
-})
+<script>
+export default {
+  layout: "main",
+  methods:{
+      async logout(){
+            await this.$auth.logout(/* .... */)
+        }
+  }
+};
 </script>
